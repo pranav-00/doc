@@ -6,18 +6,19 @@ document.getElementById('addMedicineBtn').addEventListener('click', function() {
   newMedicineRow.innerHTML = `
     <label for="medicine">Medicine Name:</label>
      <input type="text" class="medicine" placeholder="Amoxicillin" required>
-
+    <br>
     <label for="morningDosage">Morning Dosage:</label>
     <input type="text" class="morningDosage" placeholder="1" value="1" required><br>
-
+    <br>    
     <label for="afternoonDosage">Afternoon Dosage:</label>
     <input type="text" class="afternoonDosage" placeholder="1" value="1" required><br>
-
+    <br>
     <label for="nightDosage">Night Dosage:</label>
     <input type="text" class="nightDosage" placeholder="1" value="1" required><br>
-
+    <br>
     <label for="quantity">Quantity:</label>
     <input type="number" class="quantity" placeholder="30" required>
+    <br>
   `;
 
   medicineContainer.appendChild(newMedicineRow);
