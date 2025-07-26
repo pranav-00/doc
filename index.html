@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prescription Generator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Prescription Generator</h1>
+    
+    <form id="prescriptionForm">
+      <label for="doctorName">Doctor's Name:</label>
+      <input type="text" id="doctorName" placeholder="Dr. John Doe" required><br>
+
+      <label for="patientName">Patient's Name:</label>
+      <input type="text" id="patientName" placeholder="Jane Doe" required><br>
+
+      <div id="medicinesContainer">
+        <div class="medicineRow">
+          <label for="medicine">Medicine Name:</label>
+          <input type="text" class="medicine" placeholder="Amoxicillin" required>
+
+          <label for="dosage">Dosage:</label>
+          <input type="text" class="dosage" placeholder="500mg" required>
+
+          <label for="quantity">Quantity:</label>
+          <input type="number" class="quantity" placeholder="30" required>
+        </div>
+      </div>
+      
+      <button type="button" id="addMedicineBtn">Add Another Medicine</button><br><br>
+      <button type="button" id="generatePdfBtn">Generate Prescription PDF</button>
+    </form>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
