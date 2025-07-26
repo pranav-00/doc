@@ -1,4 +1,3 @@
-// script.js
 document.getElementById('addMedicineBtn').addEventListener('click', function() {
   const medicineContainer = document.getElementById('medicinesContainer');
   const newMedicineRow = document.createElement('div');
@@ -6,11 +5,19 @@ document.getElementById('addMedicineBtn').addEventListener('click', function() {
   
   newMedicineRow.innerHTML = `
     <label for="medicine">Medicine Name:</label>
-    <input type="text" class="medicine" placeholder="Medicine Name" required>
-    <label for="dosage">Dosage:</label>
-    <input type="text" class="dosage" placeholder="Dosage" required>
+     <input type="text" class="medicine" placeholder="Amoxicillin" required>
+
+    <label for="morningDosage">Morning Dosage:</label>
+    <input type="text" class="morningDosage" placeholder="1" value="1" required><br>
+
+    <label for="afternoonDosage">Afternoon Dosage:</label>
+    <input type="text" class="afternoonDosage" placeholder="1" value="1" required><br>
+
+    <label for="nightDosage">Night Dosage:</label>
+    <input type="text" class="nightDosage" placeholder="1" value="1" required><br>
+
     <label for="quantity">Quantity:</label>
-    <input type="number" class="quantity" placeholder="Quantity" required>
+    <input type="number" class="quantity" placeholder="30" required>
   `;
 
   medicineContainer.appendChild(newMedicineRow);
@@ -20,38 +27,43 @@ document.getElementById('generatePdfBtn').addEventListener('click', function() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  // Get form values
   const doctorName = document.getElementById('doctorName').value;
   const patientName = document.getElementById('patientName').value;
 
-  // Collect all medicines
   const medicines = [];
   const medicineInputs = document.querySelectorAll('.medicine');
-  const dosageInputs = document.querySelectorAll('.dosage');
+  const morningDosageInputs = document.querySelectorAll('.morningDosage');
+  const afternoonDosageInputs = document.querySelectorAll('.afternoonDosage');
+  const nightDosageInputs = document.querySelectorAll('.nightDosage');
   const quantityInputs = document.querySelectorAll('.quantity');
 
   for (let i = 0; i < medicineInputs.length; i++) {
     medicines.push({
       name: medicineInputs[i].value,
-      dosage: dosageInputs[i].value,
+      morningDosage: morningDosageInputs[i].value,
+      afternoonDosage: afternoonDosageInputs[i].value,
+      nightDosage: nightDosageInputs[i].value,
       quantity: quantityInputs[i].value
     });
   }
 
-  // Add prescription content to the PDF
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(14);
-  
+
   doc.text('Prescription', 10, 20);
   doc.text(`Doctor: ${doctorName}`, 10, 30);
   doc.text(`Patient: ${patientName}`, 10, 40);
-  
-  let yPosition = 50;  // Starting Y position for medicines
+
+  let yPosition = 50;
   medicines.forEach((medicine, index) => {
-    doc.text(`${index + 1}. ${medicine.name} - Dosage: ${medicine.dosage} x Quantity: ${medicine.quantity}`, 10, yPosition);
-    yPosition += 10;  // Move down for the next medicine
+    // Format the dosage as x--------y-------z
+    const dosageText = `${medicine.morningDosage}-----------${medicine.afternoonDosage}----------${medicine.nightDosage}`;
+    
+    doc.text(`${index + 1}. ${medicine.name}`, 10, yPosition);
+    doc.text(`Quantity: ${medicine.quantity}`, 160, yPosition);
+    doc.text(`${dosageText} `, 20, yPosition+10);
+    yPosition += 20;
   });
-  
-  // Download the PDF
+
   doc.save('prescription.pdf');
 });
