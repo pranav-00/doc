@@ -28,6 +28,32 @@ document.getElementById('generatePdfBtn').addEventListener('click', function() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
+  // === Letterhead ===
+  doc.setFillColor(255, 255, 255);
+  doc.rect(0, 0, 210, 35, 'F');
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(22);
+  doc.setTextColor(110, 144, 70); // green from card
+  doc.text("Dr. Bhutada's", 10, 12);
+
+  doc.setFontSize(16);
+  doc.setTextColor(33, 33, 33);
+  doc.text("Advanced Homeopathy", 10, 20);
+
+  doc.setFontSize(12);
+  doc.text("Specially Hair Care & Kidney Stones", 10, 26);
+
+  doc.setFontSize(10);
+doc.text("Phone: 9422046620 | 9970144102", 150, 12);
+doc.text("Address: Main Road, GEORAI, Dist. Beed", 150, 18);
+
+
+  doc.setDrawColor(133, 184, 79);
+  doc.setLineWidth(1.2);
+  doc.line(10, 30, 200, 30);
+
+  // Prescription content starts below
   const doctorName = document.getElementById('doctorName').value;
   const patientName = document.getElementById('patientName').value;
 
@@ -48,21 +74,18 @@ document.getElementById('generatePdfBtn').addEventListener('click', function() {
     });
   }
 
-  doc.setFont('helvetica', 'normal');
+  let yPosition = 40;
   doc.setFontSize(14);
+  // doc.text(`Doctor: ${doctorName}`, 10, yPosition);
+  doc.text(`Patient: ${patientName}`, 10, yPosition);
 
-  doc.text('Prescription', 10, 20);
-  doc.text(`Doctor: ${doctorName}`, 10, 30);
-  doc.text(`Patient: ${patientName}`, 10, 40);
-
-  let yPosition = 50;
+  yPosition += 20;
   medicines.forEach((medicine, index) => {
-    // Format the dosage as x--------y-------z
     const dosageText = `${medicine.morningDosage}-----------${medicine.afternoonDosage}----------${medicine.nightDosage}`;
     
     doc.text(`${index + 1}. ${medicine.name}`, 10, yPosition);
     doc.text(`Quantity: ${medicine.quantity}`, 160, yPosition);
-    doc.text(`${dosageText} `, 20, yPosition+10);
+    doc.text(`${dosageText}`, 20, yPosition + 10);
     yPosition += 20;
   });
 
