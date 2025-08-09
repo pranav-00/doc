@@ -46,8 +46,8 @@ document.getElementById('generatePdfBtn').addEventListener('click', function() {
 
   doc.setFontSize(10);
 doc.text("Phone: 9422046620 | 9970144102", 150, 12);
-doc.text("Address: Main Road, GEORAI, Dist. Beed", 150, 18);
-
+doc.text("Address: Main Road, GEORAI,", 150, 18);
+doc.text("Dist. Beed",150 ,24)
 
   doc.setDrawColor(133, 184, 79);
   doc.setLineWidth(1.2);
